@@ -355,14 +355,226 @@ article 내에 구분되는 `h2` 제목이 사용되면 좋다.
 
 ### < html의 표 >
 
-- #### table
+- #### table, caption
 <img src="https://velog.velcdn.com/images/wonder1247/post/3ac661ea-0a11-4f91-a932-632618b630d2/image.png" width="500px">
 
 <img src="https://velog.velcdn.com/images/wonder1247/post/bc1fb5c6-3e27-47f8-bc9b-7abf13412065/image.png" width="500px">
 
+### < html의 img >
+
+- #### img 태그
+
+  내부 내용을 작성하는 코드가 아닌 빈요소로 내용을 적어도 보이지 않는다.
+  필수 어트리뷰트 Atrribute 속성으로 `src` 를 포함하여 이미지 경로를 지정한다. `alt` 속성은 이미지의 설명을 적는 텍스트 이고, 필수는 아니지만 스크린리더 사용자에게 이미지를 읽어주기 때문에 접근성에 용이하다.
+
+- #### img의 경로
+
+  절대경로와 상대경로
+
+  - 절대경로
+    어떤 위치에서 불러도 동일한 장소로 도달하는 경로
+    예\_이미지의 웹주소
+  - 상대경로
+    현재 위치에서 찾는 경로
+    예\_A위치에서 C파일로 가는 123, B위치에서 C파일로 가는 023
+
+- #### img의 alternative text
+
+  스크린리더 사용에 도움을 주거나 이미지가 어떠한 이유로 불러오기 어려울 경우, 대체 텍스트를 이용하여 이미지가 어떤 이미지인지 설명을 대체할 수 있다.
+  간혹, alt 를 마우스 오버 시 툴팁으로 보여지는 경우가 있는데 그건 브라우저 설정에 따른 것이므로 마우스 오버 툴팁을 지정하고 싶으면 title 속성으로 주면 된다.
+
+- #### img 의 width, height
+
+  width, height 모두 이미지의 픽셀 기준 고유 너비.
+  단위 없는 정수.
+  width="100" (단위 없는 정수)
+  width 또는 height 중 하나만 지정하여도 원본 이미지에 비례하여 자동으로 변화된다.
+  width와 height의 값을 각각 지정했다면 지정값으로 변화한다.
+
+- #### 웹에서 사용하는 이미지 유형
+
+  html은 지원하는 이미지를 명시하지 않지만 브라우저(사용자 에이전트)별로 지원형식이 다르니 확장자를 보기 전에 브라우저들에서 사용 가능한 확장자가 무엇인지를 확인하는 것이 중요하다.
+  <br/>
+  캔아이유즈
+  https://www.caniuse.com
+  <br/>
+  <img src="https://velog.velcdn.com/images/wonder1247/post/e055353d-35a3-43c6-b651-992b6bece723/image.png" width="700px">
+
+- #### img : 반응형 적용 - srcset
+  브라우저별로 적용시킬 수 있는 이미지 세트를 만드는 것.
+  쉽표로 구분하는 한개 이상의 이미지 목록을 말한다.
+  - 여러 개의 이미지 경로 지정 가능.
+  - 사용자의 뷰포트에 따른 반응형에 적용할 수 있다.
+  - 너비서술자, 밀도서술자 사용
+  - srcset = "소스주소 너비w 픽셀밀도x, ..."
+
+```html
+<img src="../img/large.png" /* 대표 src는 반드시 넣어줘야 함 */ srcset=
+"../img/small.png 300w, /* url, 너비서술자 */ ../img/medium.png 450w,
+../img/large.png 600w" alt="image set" />
+```
+
+- #### img : 반응형 적용 - sizes
+
+  src set는 뷰포트에 따라서 다른 이미지를 주지만
+  sizes는 조건에 따라서 다른 파일을 주거나, 파일의 width값을 지정해서 보여줄 수 있다.
+
+  min-width : 지정값보다 큰 화면일 경우,
+  max-width : 지정값보다 작은 화면일 경우
+
+```html
+<img
+  src="../img/large.png"
+  sizes="(min-width: 600px) 600px, /* 600px보다 큰 화면은 600px 로 고정된 이미지를 보여줘 -> 화면이 600~450px 사이에서 600px 사이즈로 고정되어 보여진다. */
+                 (min-width: 460px) 450px, 
+                 300px"
+  alt="image set"
+/>
+/*600px 보다 큰 화면이면 600px로, 460px 보다 큰 화면이면 450px로, 그것도 아니면
+300px로 보여줘*/
+```
+
+### < html의 video >
+
+- #### < video > < /video >
+
+  - src : 경로. video 태그의 src는 선택사항이다. 이유는 video 태그 내부에 < sourse src="./video/location.mp4" >로 여러개의 소스를 적용 가능하기 떄문이다.
+  - 빈 요소가 아니므로 내용 = alternative 속성처럼 브라우저가 미지원 시 대신 적용된다.
+  - controls : boolean 속성. 입력하면 컨트롤 패널이 보인다.
+  - autoplay : 자동재생. 페이지를 새로고침하면 멈추게 된다.(사운드가 있을 경우)
+  - mute : 영상의 음성을 막는다. 영상이 음소거 된 경우는 autoplay는 자동으로 실행된다.
+  - poster : 지정하지 않을 경우 영상의 첫 프레임이 썸네일이 된다.
+
+- #### audio
+
+  - src : video와 같이 선택사항으로 태그 내부에 < source src="" >로 여러개의 소스를 적용 가능하다.
+  - controls : boolean 속성. 입력하면 컨트롤 패널이 보인다.
+  - autoplay : 자동재생. 사용자 경험을 이유로 audio 속성은 자동재싱이 적용되지 않을 수 있다.
+
+- #### canvas, iframe
+  - canvas는 자바스크립트를 사용해야 함.
+  - 인라인 프레임 안에 다른 html 페이지를 삽입할 수 있다.(보통 지도, youtube)
+
+### < html의 ⭐︎ form 폼 (사실 form보다는 input)>
+
+사용자가 작성하는 정보를 받을 수 있다. 단독 사용은 안되고 내부에 input 같은 요소를 넣어주어야 한다.
+
+- #### action, method
+
+  - action : 양식데이터를 처리할 프로그램의 url (절대, 상대경로)
+  - method : GET, POST 등 메소드를 지정할 수 있다.
+    특히 GET 메소드는 제출 시 주소창에 입력내용이 드러나므로 비번 같은 민감정보는 해당 방식으로 보내면 안된다.
+    주로 키워드, 검색창 등에 사용한다.
+
+- #### label 과 input
+  - input 영역을 설명해주는 label을 붙여주면 사용자의 편의성이 좋아지고 접근성도 좋아진다.
+  - input MDN [링크 바로가기](https://developer.mozilla.org/ko/docs/Web/HTML/Element/Input)
+  - input은 다양한 type을 갖는다.
+  - ⭐︎ label의 `for`과 input의 `id`를 동일한 이름을 사용해 연결할 수 있다.
+  - label은 이미지 등이 올 수 없다. >css / bg-img로 넣어보니까 label에 적용은 되는데 텍스트가 옆으로 옮겨지지 않음. 상위 div에 적용하고 label에 마진으로 넓히는 건 가능.
+
+```html
+<div>
+  <label for="color">
+    좋아하는 색 ::
+    <input type="text" id="color" />
+  </label>
+</div>
+```
+
+<img src="https://velog.velcdn.com/images/wonder1247/post/2f1c59ad-d5f8-4d8b-ba1d-3b9ddfb21a14/image.png" width="300px">
+
+- #### feildset, legend
+  여러 input을 역할 별로 구분할 수 있게 만든다.
+  legend는 fildset의 자식으로 올 수 있다.
+  feildset의 첫번째 자식이 legend가 와야 한다.
+
+```html
+<form>
+  <fieldset>
+    <legend>제일 좋아하는 것</legend>
+
+    <input type="radio" id="쿠키" name="좋아" value="K" />
+    <label for="쿠키">마카다미아 쿠키</label><br />
+
+    <input type="radio" id="음료" name="좋아" value="S" />
+    <label for="음료">딸기우유</label><br />
+
+    <input type="radio" id="한식" name="좋아" value="M" />
+    <label for="한식">된장찌개</label>
+  </fieldset>
+</form>
+```
+
+<img src="https://velog.velcdn.com/images/wonder1247/post/1589a8ff-75da-4692-a452-5fdb548e4cb8/image.png" width="300px">
+
+- #### input type(1) :: text입력
+
+  - input type="text"
+    한 줄만 입력 가능. 개행을 위해 Enter 입력 시 제출.
+    min-length 와 max-length 로 글자수 제한 가능.
+    min-length 미만 입력 후 제출 시 브라우저 제공 툴팁이 확인 가능
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/afafb059-14f7-4a24-be5c-1bc0d80e1cee/image.png" width="600px">
+
+  - input type="password"
+    type="text"와 동일하나 마스킹 처리되어 보인다.
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/ee41b95d-9c68-4f9e-b179-216faaa9247c/image.png" width="600px">
+
+  - input type="email"
+    브라우저가 자동으로 이메일 형식인지를 파악하여 형식에 맞지 않으면 경고 툴팁을 보여준다.
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/70752240-e206-4651-a041-d99dc64c822b/image.png" width="600px">
+
+  - input type="tel"
+    형식은 판단하지 않으나 모바일의 경우 자동으로 숫자판을 띄워주기도 한다고 함.
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/0a4c0b38-5582-4d1e-b418-861e86faa8fa/image.png" width="600px">
+
+- #### input type(2) :: 날짜/숫자 입력
+
+  - input type="number"
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/829e38d2-5c89-4c54-b66d-1e8ba5600f07/image.png" width="600px">
+
+  - input type="range"
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/8e831661-232b-4d8e-ab7d-896a3907e75c/image.png" width="600px">
+
+  - input type="date"
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/a0480d9d-7f0d-401a-9bdf-2d8d70c397f0/image.png" width="600px">
+
+  - input type="month / week"
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/f8459601-16bc-45bd-92da-a51a2f12bbb6/image.png" width="600px">
+
+  - input type="time"
+
+  <img src="https://velog.velcdn.com/images/wonder1247/post/c64347f5-3482-4397-90f2-f58e4ca04e74/image.png" width="600px">
+
 - ####
 
-- <b></b>
-  <br/>
+- ####
+
+- ####
+
+- ####
+
+- ####
+
+- ####
+
+- ####
+
+- ####
+
+- ####
+
+- ####
+
+- ####
+
   <b></b>
   <br/>
